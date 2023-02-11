@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { IRouterType } from '../interfaces/router';
 
 const Login = lazy(() => import('../pages/login/index'));
+const Register = lazy(() => import('../pages/register/index'));
 const AuthLayout = lazy(() => import('../components/layout/AuthLayout'));
 
 const authRoutes: IRouterType[] = [
@@ -16,6 +17,10 @@ const authRoutes: IRouterType[] = [
       {
         path: 'login',
         element: Login,
+      },
+      {
+        path: 'register',
+        element: Register,
       },
     ],
   },

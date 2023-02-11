@@ -44,6 +44,9 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
-    "@types/react": "^18.0.26"
+    "@types/react": "^18.0.26",
+    "@types/styled-components": "^5.1.26",
+    "node-sass": "^8.0.0",
+    "styled-components": "^5.3.6"
   }
 }
