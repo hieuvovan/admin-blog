@@ -3,6 +3,7 @@ import { RouterOutlet } from './routes/RouterOutlet';
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import appRoutes from './routes/appRoutes';
+import { hot } from 'react-hot-loader/root';
 
 function App() {
   return (
@@ -14,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(App);

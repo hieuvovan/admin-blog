@@ -10,6 +10,8 @@ import FlexBox from '../../components/flexbox';
 
 import Logo from '../../assets/logo.svg';
 
+import authService from '../../services/auth';
+
 const LoginPageContainer = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -46,7 +48,9 @@ export const LOGIN_FIELDS = [
 ];
 
 export default function Login() {
-  const onLogin = (data: ILoginData) => {};
+  const onLogin = (data: ILoginData) => {
+    authService.login(data);
+  };
 
   return (
     <LoginPageContainer>
