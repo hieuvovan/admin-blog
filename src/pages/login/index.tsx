@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
@@ -10,7 +10,10 @@ import FlexBox from '../../components/flexbox';
 
 import Logo from '../../assets/logo.svg';
 
-import authService from '../../services/auth';
+import { loginAction } from '../../reducers/authSlice';
+
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const LoginPageContainer = styled.div`
   width: 100%;
@@ -25,12 +28,12 @@ export const LOGIN_FIELDS = [
   {
     rules: [
       {
-        message: 'Username is required',
+        message: 'Email is required',
         required: true,
       },
     ],
-    name: 'username',
-    placeholder: 'Username',
+    name: 'email',
+    placeholder: 'Email',
     icon: <UserOutlined />,
   },
   {
@@ -48,8 +51,19 @@ export const LOGIN_FIELDS = [
 ];
 
 export default function Login() {
-  const onLogin = (data: ILoginData) => {
-    authService.login(data);
+  const navigate = useNavigate();
+  const dispatch: any = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  const onLogin = async ({ email, password }: ILoginData) => {
+    setLoading(true);
+    await dispatch(loginAction({ email, password }, onLoginSuccess));
+    setLoading(false);
+  };
+
+  const onLoginSuccess = () => {
+    navigate('/');
   };
 
   return (
@@ -93,6 +107,7 @@ export default function Login() {
             className="btn-fullwidth btn-login"
             type="primary"
             htmlType="submit"
+            loading={loading}
           >
             Login
           </Button>
