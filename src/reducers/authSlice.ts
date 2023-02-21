@@ -29,13 +29,19 @@ export const loginAction =
 
     if (!data) return;
 
-    const { user, token } = data;
+    const { user, accessToken } = data;
 
     dispatch(setUser(user));
-    authStorageService.token = token;
+    authStorageService.token = accessToken;
 
     callback && callback();
   };
+
+export const getMeAction = () => async (dispatch: any) => {
+  const data = await authService.getMe();
+
+  dispatch(setUser(data));
+};
 
 export const { setUser } = authSlice.actions;
 

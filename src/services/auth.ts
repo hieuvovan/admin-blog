@@ -9,18 +9,21 @@ const authStorageService = new AuthStorageService();
 const authService = {
   login: async (body: ILoginData) => {
     try {
-      const res: any = await apiService.post(['user', 'login'], body);
+      const res: any = await apiService.post(['auth', 'login'], body);
       return res.data;
     } catch (error: any) {
       console.log('Error message:', error);
       toast.error(error.data.message);
     }
   },
-  logout: async (callback?: () => void) => {
+  logout: (callback?: () => void) => {
+    authStorageService.destroy();
+    callback && callback();
+  },
+  getMe: async () => {
     try {
-      await apiService.post(['user', 'me', 'logout']);
-      authStorageService.destroy();
-      callback && callback();
+      const data = await apiService.get(['user', 'me']);
+      return data;
     } catch (error: any) {
       console.log('Error message:', error);
       toast.error(error.data.message);

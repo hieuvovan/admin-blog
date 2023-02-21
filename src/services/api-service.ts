@@ -1,3 +1,4 @@
+import { UNAUTHORIZED_ERROR_CODE } from './../constants/errorCode';
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { AuthStorageService } from './authStorageService';
 import { config } from '../config/index';
@@ -123,10 +124,17 @@ export class ApiService {
 
     // Make error model before promise
     if (error.isAxiosError && error.response) {
-      // Axios error
-      return Promise.reject({
-        data: error.response.data,
-      });
+      switch (error.response.status) {
+        case UNAUTHORIZED_ERROR_CODE:
+          authStorageService.destroy();
+          return (window.location.href = '/auth/login');
+
+        default:
+          // Axios error
+          return Promise.reject({
+            data: error.response.data,
+          });
+      }
     } else {
       // Default | Network errors | CORS | ...
       return Promise.reject({});
