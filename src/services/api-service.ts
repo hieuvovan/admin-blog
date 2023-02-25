@@ -127,7 +127,9 @@ export class ApiService {
       switch (error.response.status) {
         case UNAUTHORIZED_ERROR_CODE:
           authStorageService.destroy();
-          return (window.location.href = '/auth/login');
+          return Promise.reject({
+            data: error.response.data,
+          });
 
         default:
           // Axios error
