@@ -14,11 +14,11 @@ function renderRoute(routes: any) {
 
     return (
       <Route
-        key={ index }
-        path={ route.path }
-        element={ route.isProtected ? <PrivateRoute /> : <route.element /> }
+        key={index}
+        path={route.path}
+        element={route.isProtected ? <PrivateRoute /> : <route.element />}
       >
-        { route.children && renderRoute(route.children) }
+        {route.children && renderRoute(route.children)}
       </Route>
     );
   });
@@ -27,7 +27,11 @@ function renderRoute(routes: any) {
 export const RouterOutlet = ({ routes }: any) => {
   return (
     <Routes>
-      { renderRoute(routes) }
+      {renderRoute(routes)}
+      <Route
+        path="*"
+        element={<div>Not found</div>}
+      />
     </Routes>
   );
 };

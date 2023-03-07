@@ -15,6 +15,8 @@ import { loginAction } from '../../reducers/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { AppDispatch } from '../../store';
+
 const LoginPageContainer = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -52,7 +54,7 @@ export const LOGIN_FIELDS = [
 
 export default function Login() {
   const navigate = useNavigate();
-  const dispatch: any = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
 
